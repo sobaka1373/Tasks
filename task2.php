@@ -2,29 +2,35 @@
 require_once '../vendor/autoload.php';
 use PHPUnit\Framework\TestCase;
 
-function mondaysCalculator() : int {
-    for($month = 1, $mondays = 0, $year = 1900; $year < 1999; $month++) {
+function mondaysCalculator() : array
+{
+    $mondaysArray = [];
+    for ($month = 1, $year = 1900; $year < 1999; $month++) {
         if (date("l", mktime(0, 0, 0, $month, 1, $year)) === "Monday") {
-            $mondays++;
+            $mondaysArray[] = date("d.m.Y", mktime(0, 0, 0, $month, 1, $year));
         }
+
         if ($month === 12) {
             $year++;
             $month = 0;
         }
     }
-    echo "Output: " . $mondays . PHP_EOL;
-    echo "01.01.1900" . PHP_EOL;
-    echo "01.01.1999" . PHP_EOL;
-    return $mondays;
+
+    return $mondaysArray;
 }
 
-mondaysCalculator();
+$mondaysArray = mondaysCalculator();
+$mondaysCount = count($mondaysArray);
+echo "Output: " . $mondaysCount . PHP_EOL;
+foreach ($mondaysArray as  $item) {
+    echo $item . PHP_EOL;
+}
 
 final class Task2Test extends TestCase
 {
     public function testMondaysCalculator():void
     {
-        $mondays = mondaysCalculator();
-        $this->assertSame($mondays, 170);
+        $mondaysArray = mondaysCalculator();
+        $this->assertSame($mondaysArray[2], "01-04-1901");
     }
 }

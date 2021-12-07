@@ -5,9 +5,10 @@ use PHPUnit\Framework\TestCase;
 function mondaysCalculator() : array
 {
     $mondaysArray = [];
-    for ($month = 1, $year = 1900; $year < 1999; $month++) {
-        if (date("l", mktime(0, 0, 0, $month, 1, $year)) === "Monday") {
-            $mondaysArray[] = date("d.m.Y", mktime(0, 0, 0, $month, 1, $year));
+    for ($month = 1, $year = 1900; $year < 2000; $month++) {
+        $timestamp = mktime(0, 0, 0, $month, 1, $year);
+        if (date("l", $timestamp) === "Monday") {
+            $mondaysArray[] = date("d.m.Y", $timestamp);
         }
 
         if ($month === 12) {
@@ -20,11 +21,8 @@ function mondaysCalculator() : array
 }
 
 $mondaysArray = mondaysCalculator();
-$mondaysCount = count($mondaysArray);
-echo "Output: " . $mondaysCount . PHP_EOL;
-foreach ($mondaysArray as  $item) {
-    echo $item . PHP_EOL;
-}
+echo "Output: " . count($mondaysArray) . PHP_EOL;
+echo implode(PHP_EOL, $mondaysArray) . PHP_EOL;
 
 final class Task2Test extends TestCase
 {

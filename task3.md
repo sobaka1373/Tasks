@@ -5,7 +5,8 @@ validation of correct email. Password typing should be hidden. Enable submit but
 are filled in together with correct email. 
 
 Don't use AJAX to send request to back-end. Authenticate user over the file below:
-```<?php
+```
+<?php
 
 declare(strict_types=1);
 
